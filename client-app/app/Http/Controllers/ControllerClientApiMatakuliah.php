@@ -10,7 +10,11 @@ class ControllerClientApiMatakuliah extends Controller
     public function getMatakuliah()
     {
         $client = new \GuzzleHttp\Client();
-        $request = $client->get('http://localhost:8080/server-app/public/api/matakuliah/get');
+        $request = $client->get('http://localhost:8080/server-app/public/api/matakuliah/get', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . 'UNBIN'
+            ]
+        ]);
         $response = $request->getBody();
         $result = json_decode($response, true);
         return view('admin.index')->with('data', $result['data']);
@@ -27,6 +31,9 @@ class ControllerClientApiMatakuliah extends Controller
             'form_params' => [
                 'txtkodematakuliah' => $request->txtkodematakuliah,
                 'txtmatakuliah' => $request->txtmatakuliah,
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer ' . 'UNBIN'
             ]
                 ]); 
         return redirect('/matakuliah')->with('message', 'Data Berhasil Disimpan');
@@ -47,6 +54,9 @@ class ControllerClientApiMatakuliah extends Controller
                 'txtid' => $request->id,
                 'txtkodematakuliah' => $request->txtkodematakuliah,
                 'txtmatakuliah' => $request->txtmatakuliah,
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer ' . 'UNBIN'
             ]
         ]);
         return redirect('/matakuliah')->with('message', 'Data Berhasil Disimpan');;
@@ -56,7 +66,11 @@ class ControllerClientApiMatakuliah extends Controller
     {
         $client = new \GuzzleHttp\Client();
         //mengirim data ke url api menggunakan metode delete yang menyisipkan parameter di akhir url
-        $response = $client->delete('http://localhost:8080/server-app/public/api/matakuliah/delete/'.$id);
+        $response = $client->delete('http://localhost:8080/server-app/public/api/matakuliah/delete/'.$id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . 'UNBIN'
+            ]
+        ]);
         // alihkan halaman ke halaman matakuliah
         return redirect('/matakuliah')->with('message', 'Data Berhasil Dihapus');;
     }

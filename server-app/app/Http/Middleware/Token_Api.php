@@ -16,7 +16,15 @@ class Token_Api
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->header('APP_KEY');
+        //postman
+        // $token = $request->header('APP_KEY');
+        // if ($token != 'UNBIN'){
+        //     return response()->json(['message' => 'App key not found'],401);
+        // }
+        // return $next($request);
+
+        //client
+        $token = $request->bearerToken();
         if ($token != 'UNBIN'){
             return response()->json(['message' => 'App key not found'],401);
         }
